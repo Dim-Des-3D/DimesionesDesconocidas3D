@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIMENSIONES DESCONOCIDAS 3D</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> <!-- Swiper CSS -->
+  <link rel="stylesheet" href="estilos.css"> <!-- Vincula el CSS externo -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <!-- Barra superior fija -->
+    <header class="barra-fija">
+      <div class="filtro">
+        <label for="categoria">Filtrar por categoría:</label>
+        <select id="categoria">
+          <option value="todos">Todos</option>
+          <option value="figura">Figuras</option>
+          <option value="pieza">Piezas</option>
+          <option value="decoracion">Decoración</option>
+          <option value="llavero">Llavero</option>
+        </select>
+      </div>
+      <div class="buscador">
+        <input type="text" id="busqueda" placeholder="Buscar productos..." />
+        <button id="limpiar-busqueda">X</button>
+      </div>
+      <img src="imagen/logo.svg" alt="Logo" class="logo-pequeno"> <!-- Logo pequeño -->
+      <span class="titulo-pequeno">DIM<br>DES<br>3D</span> <!-- Nombre reducido -->
+    </header>
+    
+    <!-- Encabezado principal -->
+   <header class="encabezado-principal">
+      <div class="encabezado-contenido">
+        <img src="imagen/logo.svg" alt="Logo" class="logo-grande"> <!-- Logo al lado del texto -->
+        <div>
+          <h1>Bienvenido a DIMENSIONES DESCONOCIDAS 3D</h1>
+          <p>Explora nuestro catálogo de productos impresos en 3D</p>
+        </div>
+      </div>
+    </header>
+
+  <!-- Carrusel -->
+  <main class="seccion-carrusel">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="imagen/3D-0005.jpg" alt="Producto 1">
+          <h3>Producto 1</h3>
+        </div>
+        <div class="swiper-slide">
+          <img src="imagen/3D-0006.jpg" alt="Producto 2">
+          <h3>Producto 2</h3>
+        </div>
+        <div class="swiper-slide">
+          <img src="imagen/3D-0007.jpg" alt="Producto 3">
+          <h3>Producto 3</h3>
+        </div>
+        <div class="swiper-slide">
+          <img src="imagen/3D-0008.jpg" alt="Producto 4">
+          <h3>Producto 4</h3>
+        </div>
+        <div class="swiper-slide">
+          <img src="imagen/3D-0009.jpg" alt="Producto 5">
+          <h3>Producto 5</h3>
+        </div>
+      </div>
+      <!-- Botones de navegación -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </main>
+
+  <!-- Contenedor de productos -->
+  <main id="productos" class="contenedor-productos">
+    <div class="producto">
+  <div class="imagen-contenedor" onclick="abrirModalDetalles('3D-0001')">
+    <img src="figura1.jpg" alt="Figura Alien">
+    <div class="overlay-ver">VER</div>
+  </div>
+  <h3>Figura Alien</h3>
+  <p>Código: 3D-0001</p>
+</div>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="pie-pagina">
+    <p>&copy; 2025 [Tu Negocio]. Todos los derechos reservados.</p>
+    <div class="redes-sociales">
+      <a href="https://www.facebook.com/share/1Y6EVMMRUg/" target="_blank"><img src="imagen/facebook.svg" alt="Facebook" class="social-icon">Facebook</a>
+      <a href="https://www.instagram.com/dimensiones_3d_personalizado?igsh=MWxudDdyY3N5aDFsNg==" target="_blank"> <img src="imagen/instagram.svg" alt="Instagram" class="social-icon">Instagram</a>
+      <a href="https://www.tiktok.com/@animatix9?_t=ZS-8vmYbankWfw&_r=1" target="_blank"><img src="imagen/tik-tok.svg" alt="TikTok" class="social-icon">Tik Tok</a>
+    </div>
+    <div class="sobre-nosotros">
+      <h2>Sobre nosotros</h2>
+      <p>Somos un negocio dedicado a la impresión 3D, ofreciendo productos personalizados y de alta calidad. Nuestro objetivo es dar vida a tus ideas.</p>
+    </div>
+  </footer>
+
+  <!-- Botón para volver arriba -->
+  <button id="volver-arriba" class="volver-arriba">↑</button>
+
+  <!-- Botón flotante del carrito -->
+  <button id="boton-carrito" class="boton-carrito">🛒</button>
+
+  <!-- Ventana flotante del carrito -->
+  <div id="ventana-carrito" class="ventana-carrito">
+    <h3>Carrito de productos</h3>
+    <ul id="lista-carrito"></ul>
+    <button id="enviar-carrito" class="btn-enviar-carrito" onclick="enviarCarritoAWhatsApp()">Enviar a WhatsApp</button>
+  </div>
+
+  <!-- Mensaje flotante -->
+  <div id="mensaje-flotante" class="mensaje-flotante"></div>
+
+  <!-- Modal para vista 3D -->
+  <div id="modal-3d" class="modal-3d centrado">
+    <div class="modal-content">
+      <span id="cerrar-modal" class="cerrar-modal">&times;</span>
+      <div id="renderizador-3d" class="renderizador-3d"></div>
+    </div>
+  </div>
+
+  <!-- Ventana modal para detalles del producto -->
+  <div id="modal-detalles" class="modal-detalles">
+    <div class="modal-contenido">
+      <span id="cerrar-modal-detalles" class="cerrar-modal">&times;</span>
+      <div class="modal-header">
+        <h2 id="modal-titulo">Título del Producto</h2>
+      </div>
+      <div class="modal-body">
+        <div class="modal-galeria">
+          <img id="imagen-principal" src="" alt="Imagen principal">
+          <div class="galeria-thumbnails" id="galeria-thumbnails"></div>
+        </div>
+        <p id="modal-descripcion">Descripción del producto...</p>
+      </div>
+      <div class="modal-comentarios">
+        <h3>Comentarios</h3>
+        <div class="comentarios-contenedor">
+          <!-- Formulario para escribir comentarios -->
+          <form id="form-comentarios" class="form-comentarios" action="#">
+  <input type="text" id="nombre-comentario" placeholder="Tu nombre" maxlength="50" required>
+  <div class="clasificacion">
+    <label>Clasificación:</label>
+    <div id="estrellas" class="estrellas">
+      <!-- Estrellas dinámicas generadas con JavaScript -->
+    </div>
+  </div>
+  <textarea id="texto-comentario" placeholder="Escribe tu comentario (máximo 300 caracteres)" maxlength="300" required></textarea>
+  <button type="submit">Enviar comentario</button>
+</form>
+          <!-- Caja de comentarios -->
+          <div class="caja-comentarios" id="lista-comentarios">
+            <!-- Comentarios dinámicos generados con JavaScript -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="like-boton">👍 Like</button>
+        <button id="dislike-boton">👎 Dislike</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> <!-- Swiper JS -->
+  <script src="script.js"></script> <!-- Vincula el JavaScript -->
+</body>
+</html>

@@ -1,0 +1,55 @@
+/* Ajustar el tamaño del contenedor del carrusel */
+.swiper-container {
+  width: 400px; /* Ancho fijo del carrusel */
+  height: 500px; /* Alto fijo del carrusel */
+  margin: auto; /* Centrar horizontalmente */
+  position: absolute; /* Permite centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  top: 50%; /* Centrar verticalmente */
+  transform: translate(-50%, -50%); /* Ajuste para centrar completamente */
+  overflow: hidden; /* Ocultar cualquier contenido fuera del contenedor */
+  border-radius: 10px; /* Bordes redondeados para un mejor aspecto */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+}
+
+/* Ajustar las imágenes dentro del carrusel */
+.swiper-slide img {
+  width: 100%; /* Ajustar al ancho del contenedor */
+  height: 100%; /* Ajustar al alto del contenedor */
+  object-fit: cover; /* Ajustar las imágenes sin deformarlas */
+}
+
+/* Estilo para los títulos */
+.swiper-slide h3 {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #333;
+}
+
+/* Estilo para las flechas de navegación */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff; /* Color de las flechas */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  border-radius: 80%; /* Forma circular */
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo más oscuro al pasar el cursor */
+}
+
+/* Ajustar la posición de las flechas */
+.swiper-button-next {
+  right: 10px; /* Separación del borde derecho */
+}
+
+.swiper-button-prev {
+  left: 10px; /* Separación del borde izquierdo */
+}

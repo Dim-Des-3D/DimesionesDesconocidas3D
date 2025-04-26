@@ -1,0 +1,18 @@
+
+IMPORTANTE DE LEER!!!
+
+La db no te la puedo incluir por el momento, pero te dare las instrucciones para que lo realices.
+
+*Primero deberas tener instalado Xampp
+*Luego accederas a phpmyadmin
+*Luego crearas una db con el nombre que sea de tu agrado
+*Despues dentro de la db crearas una tabla con el nombre de tu agrado
+*Le daras en finalizar o crear en tu caso
+
+*Despues deberas abrir los archivos en tu editor de codigo favorito (VisualStudio)//EJEMPLO
+
+*Abriras el archvio llamado eviarcomentarios.php
+Y en donde dice $conexion cambiaras las variables, en tu caso si estas trabajando de manera local
+solo cambiaras el nombre de la db o tambie la contraeña que por lo general es "root".
+
+Listo!! Puedes ejecutarlo sin problenmas :)

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Vista 3D</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r146/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/STLLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align: center;">Producto en vista 3D</h2>
+  <div id="contenedor3d"></div>
+  <script>
+    // Obtener el código del producto desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const codigo = params.get("codigo");
+    document.write(`<p style="text-align: center;">Código: ${codigo}</p>`);
+
+    // Configuración de Three.js
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Controles de órbita
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; // Suaviza el movimiento
+    controls.dampingFactor = 0.05;
+
+    // Luz
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(1, 1, 1).normalize();
+    scene.add(light);
+
+    // Cargar el archivo STL
+    const loader = new THREE.STLLoader();
+    const rutaSTL = `modelos/${codigo}.stl`; // Ruta dinámica basada en el código del producto
+    loader.load(rutaSTL, function (geometry) {
+      const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      // Centrar el modelo
+      geometry.computeBoundingBox();
+      const center = geometry.boundingBox.getCenter(new THREE.Vector3());
+      mesh.geometry.center();
+      mesh.position.set(-center.x, -center.y, -center.z);
+
+      // Ajustar la cámara
+      camera.position.z = geometry.boundingBox.max.z * 2;
+    }, undefined, function (error) {
+      console.error('Error al cargar el archivo STL:', error);
+    });
+
+    // Animación
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update(); // Actualizar controles
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Ajustar el tamaño al cambiar el tamaño de la ventana
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
